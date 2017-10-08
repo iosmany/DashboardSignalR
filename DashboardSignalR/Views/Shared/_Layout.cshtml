@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gentelella Alela! | </title>
+
+    <!-- Font Awesome -->
+    <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="~/Content/vendors/nprogress/nprogress.css" rel="stylesheet" />
+   
+    <link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <link href="~/Content/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/jqvmap/dist/jqvmap.css" rel="stylesheet" />
+    <link href="~/Content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/build/css/custom.min.css" rel="stylesheet" />
+
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="~/Content/build/images/img.jpg" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>John Doe</h2>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    @Html.Partial("Sidebar")
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            @Html.Partial("Topnav")
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+               @RenderBody()
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <!-- FastClick -->
+    <script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/Content/vendors/nprogress/nprogress.js"></script>
+    <script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="~/Content/vendors/Chart.js/dist/Chart.min.js"></script>
+    <script src="~/Content/vendors/gauge.js/dist/gauge.min.js"></script>
+    <script src="~/Content/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+    <script src="~/Content/vendors/skycons/skycons.js"></script>
+    <script src="~/Content/vendors/Flot/jquery.flot.js"></script>
+    <script src="~/Content/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="~/Content/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="~/Content/vendors/Flot/jquery.flot.resize.js"></script>
+
+    <script src="~/Content/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/Content/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="~/Content/vendors/flot.curvedlines/curvedLines.js"></script>
+
+    <script src="~/Content/vendors/DateJS/build/date.js"></script>
+
+    <script src="~/Content/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="~/Content/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="~/Content/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+    <script src="~/Content/vendors/moment/min/moment.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/Content/build/js/custom.js"></script>
+
+    <script>
+        (function () {
+
+            $.connection.hub.logging = true;
+
+            var cpuMemoryInfoHub = $.connection.cpuOperatingDataHub;
+
+            cpuMemoryInfoHub.client.broadcastCpuInfo = function (data) {
+                //console.log(data);
+                $('#chart_gauge_01').data('gauge').set(16000 - data.RamAvailable);
+                $('#chart_gauge_01').data('gauge').setTextField(document.getElementById("gauge-text"));
+            }
+
+            $.connection.hub.start().done(function () {
+
+                function getInfo() {
+                    cpuMemoryInfoHub.server.getCpuInfo();
+                }
+
+                setInterval(getInfo, 2000);
+            });
+        })();
+
+        $.fn.gauge = function (opts) {
+            this.each(function () {
+                var $this = $(this),
+                    data = $this.data();
+
+                if (data.gauge) {
+                    data.gauge.stop();
+                    delete data.gauge;
+                }
+                if (opts !== false) {
+                    data.gauge = new Gauge(this).setOptions(opts);
+                    data.gauge.maxValue = opts.maxValue;
+                    data.gauge.animationSpeed = opts.animationSpeed;
+                }
+            });
+            return this;
+        };
+
+        var opts = {
+            lines: 12,
+            angle: 0,
+            lineWidth: 0.4,
+            pointer: {
+                length: 0.75,
+                strokeWidth: 0.042,
+                color: '#1D212A'
+            },
+            limitMax: 'false',
+            colorStart: '#1ABC9C',
+            colorStop: '#1ABC9C',
+            strokeColor: '#F0F3F3',
+            generateGradient: true,
+            maxValue: 16000,
+            animationSpeed: 32
+        };
+
+        $('#chart_gauge_01').gauge(opts).data('gauge').set(0);
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
